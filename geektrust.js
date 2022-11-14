@@ -1,6 +1,5 @@
 const fs = require("fs"),
-  updateRegularRevenue = require("./helpers").updateRegularRevenue,
-  updateVipRevenue = require("./helpers").updateVipRevenue;
+  updateRevenue = require("./helpers").updateRevenue;
 
 const filename = process.argv[2],
   BIKE_REGUlAR_COST_PER_HOUR = 60,
@@ -62,7 +61,7 @@ fs.readFile(filename, "utf8", (err, data) => {
               console.log("DUPLICATE_ENTRY");
             } else {
               if (bookedBikes.length < MAX_BIKES_ALLOWED) {
-                regularRevenue += updateRegularRevenue(
+                regularRevenue += updateRevenue(
                   bookedBikes,
                   BIKE_REGUlAR_COST_PER_HOUR,
                   vehicle_number,
@@ -78,14 +77,14 @@ fs.readFile(filename, "utf8", (err, data) => {
               console.log("DUPLICATE_ENTRY");
             } else {
               if (bookedCars.length < MAX_CARS_OR_SUVS_ALLOWED) {
-                regularRevenue += updateRegularRevenue(
+                regularRevenue += updateRevenue(
                   bookedCars,
                   CAR_REGUlAR_COST_PER_HOUR,
                   vehicle_number,
                   regularRevenue
                 );
               } else if (bookedCars.length === MAX_CARS_OR_SUVS_ALLOWED) {
-                vipRevenue += updateVipRevenue(
+                vipRevenue += updateRevenue(
                   bookedCars,
                   CAR_VIP_COST_PER_HOUR,
                   vehicle_number,
@@ -96,7 +95,7 @@ fs.readFile(filename, "utf8", (err, data) => {
                 hour > firstExit.hour
               ) {
                 bookedCars.shift();
-                regularRevenue += updateRegularRevenue(
+                regularRevenue += updateRevenue(
                   bookedCars,
                   CAR_REGUlAR_COST_PER_HOUR,
                   vehicle_number,
@@ -112,14 +111,14 @@ fs.readFile(filename, "utf8", (err, data) => {
               console.log("DUPLICATE_ENTRY");
             } else {
               if (bookedSuvs.length < MAX_CARS_OR_SUVS_ALLOWED) {
-                regularRevenue += updateRegularRevenue(
+                regularRevenue += updateRevenue(
                   bookedSuvs,
                   SUV_REGUlAR_COST_PER_HOUR,
                   vehicle_number,
                   regularRevenue
                 );
               } else if (bookedSuvs.length === MAX_CARS_OR_SUVS_ALLOWED) {
-                vipRevenue += updateVipRevenue(
+                vipRevenue += updateRevenue(
                   bookedSuvs,
                   SUV_VIP_COST_PER_HOUR,
                   vehicle_number,
@@ -127,7 +126,7 @@ fs.readFile(filename, "utf8", (err, data) => {
                 );
               } else if (hour > firstExit.hour) {
                 bookedSuvs.shift();
-                regularRevenue += updateRegularRevenue(
+                regularRevenue += updateRevenue(
                   bookedSuvs,
                   SUV_REGUlAR_COST_PER_HOUR,
                   vehicle_number,
